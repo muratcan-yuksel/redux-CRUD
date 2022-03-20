@@ -1,7 +1,6 @@
-import React from "react";
+import { React, useState } from "react";
 //useselector hook is used when you wanna read one of the states you've created in your state
 //use useDispatch hook to call addUser below
-
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "./features/Users";
 
@@ -9,14 +8,35 @@ const App = () => {
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.users.value);
 
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   return (
     <div className="App">
       <div className="addUser">
-        <input type="text" placeholder="Name..." />
-        <input type="text" placeholder="Username..." />
+        <input
+          type="text"
+          placeholder="Name..."
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          placeholder="Username..."
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
         <button
           onClick={() => {
-            dispatch(addUser());
+            dispatch(
+              addUser({
+                //a way to increment ids
+                id: userList[userList.length - 1].id + 1,
+                name: name,
+                username: username,
+              })
+            );
           }}
         >
           Add User
