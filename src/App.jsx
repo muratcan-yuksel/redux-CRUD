@@ -1,45 +1,24 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React from "react";
+//useselector hook is used when you wanna read one of the states you've created in your state
+import { useSelector } from "react-redux";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const userList = useSelector((state) => state.users.value);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <div className="addUser">
+        <input type="text" placeholder="Name..." />
+        <input type="text" placeholder="Username..." />
+        <button>Add User</button>
+      </div>
+      <div className="displayUsers">
+        {userList.map((user) => {
+          return <h1>{user.name} </h1>;
+        })}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
